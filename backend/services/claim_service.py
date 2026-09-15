@@ -26,8 +26,7 @@ def check_claim(text:str) -> dict:
 
     is_checkable = bool(matched)
     confidence = min(1.0,0.3 + 0.2 * len(matched)) if is_checkable else 0.1
-    return
-    {
+    return{
         "is_checkable_claim":is_checkable,
         "confidence":round(confidence,2),
         "matched_signals":matched

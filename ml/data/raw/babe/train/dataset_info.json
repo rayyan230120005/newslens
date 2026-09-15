@@ -1,0 +1,70 @@
+{
+  "builder_name": "parquet",
+  "citation": "",
+  "config_name": "default",
+  "dataset_name": "babe",
+  "dataset_size": 1765481,
+  "description": "",
+  "download_size": 945249,
+  "features": {
+    "text": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "outlet": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "label": {
+      "dtype": "int32",
+      "_type": "Value"
+    },
+    "topic": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "news_link": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "biased_words": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "uuid": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "type": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "label_opinion": {
+      "dtype": "string",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": "",
+  "size_in_bytes": 2710730,
+  "splits": {
+    "train": {
+      "name": "train",
+      "num_bytes": 1333396,
+      "num_examples": 3121,
+      "dataset_name": "babe"
+    },
+    "test": {
+      "name": "test",
+      "num_bytes": 432085,
+      "num_examples": 1000,
+      "dataset_name": "babe"
+    }
+  },
+  "version": {
+    "version_str": "0.0.0",
+    "major": 0,
+    "minor": 0,
+    "patch": 0
+  }
+}
