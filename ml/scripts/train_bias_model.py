@@ -33,8 +33,6 @@ def load_and_prepare(tokenizer):
     ds = load_from_disk(RAW_DIR)
 
     def tokenize(batch):
-        # No padding here - the data collator pads per-batch instead,
-        # dynamically, which is what keeps memory use down on a small GPU.
         return tokenizer(batch["text"], truncation=True, max_length=128)
 
     tokenized = ds.map(tokenize, batched=True)
@@ -91,7 +89,7 @@ def main():
         args=args,
         train_dataset=tokenized["train"],
         eval_dataset=tokenized["test"],
-        tokenizer=tokenizer,
+        processing_class=tokenizer,   # was `tokenizer=` — removed in transformers v5.0.0
         data_collator=data_collator,
         compute_metrics=compute_metrics,
     )

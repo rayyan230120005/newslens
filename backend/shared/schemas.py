@@ -2,17 +2,29 @@ from pydantic import BaseModel
 
 
 class ClaimCheckRequest(BaseModel):
-    text:str
+    text: str
+
 
 class ClaimCheckResponse(BaseModel):
-    is_checkable_claim:bool
-    confidence:float
-    matched_signals:list[str]
+    is_checkable_claim: bool
+    confidence: float
+    matched_signals: list[str]
+
 
 class BiasScoreRequest(BaseModel):
-    text:str
+    text: str
 
-class BiasScoringResponse(BaseModel):
-    bias_score:float
-    matched_signals:list[str]
-    note:str
+
+class BiasScoreResponse(BaseModel):
+    bias_score: float
+    matched_signals: list[str]
+    note: str
+
+
+class BiasExplainRequest(BaseModel):
+    text: str
+
+
+class BiasExplainResponse(BaseModel):
+    bias_score: float
+    explanation: str
