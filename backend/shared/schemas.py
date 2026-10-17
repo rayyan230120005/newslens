@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseModel
 
 
@@ -28,3 +30,20 @@ class BiasExplainRequest(BaseModel):
 class BiasExplainResponse(BaseModel):
     bias_score: float
     explanation: str
+
+
+class AnalyzeRequest(BaseModel):
+    text: str
+    tweet_id: Optional[str] = None
+    source: Optional[str] = None
+
+
+class AnalyzeResponse(BaseModel):
+    tweet_id: Optional[str]
+    is_checkable_claim: bool
+    claim_confidence: float
+    bias_score: Optional[float]
+    label: str
+    should_blur: bool
+    explanation: str
+    matched_signals: list[str]

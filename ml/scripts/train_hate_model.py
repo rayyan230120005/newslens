@@ -18,7 +18,7 @@ the end, given this machine's 4GB VRAM / limited system RAM).
 """
 
 import os
-# os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
 import torch
 from datasets import load_from_disk, concatenate_datasets
@@ -87,19 +87,23 @@ def main():
     data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=2)
 
-    args = TrainingArguments(
-    output_dir=OUTPUT_DIR,
-    eval_strategy="epoch",
-    save_strategy="no",
-    learning_rate=2e-5,
-    per_device_train_batch_size=1,       # was 2
-    per_device_eval_batch_size=2,        # was 4
-    gradient_accumulation_steps=16,      # was 8 — keeps effective batch size at 16
-    gradient_checkpointing=True,         # new — real memory savings, some speed cost
-    fp16=torch.cuda.is_available(),
-    num_train_epochs=3,
-    weight_decay=0.01,
-)
+args = TrainingArguments(
+        output_dir=OUTPUT_DIR,
+        eval_strategy="epoch",
+        save_strategy="epoch",
+        learning_rate=2e-5,
+        per_device_train_batch_size=8,
+        per_device_eval_batch_size=16,
+        gradient_accumulation_steps=2,
+        gradient_checkpointing=True,
+        fp16=torch.cuda.is_available(),
+        max_grad_norm=1.0,
+        num_train_epochs=3,
+        weight_decay=0.01,
+        save_total_limit=2,
+        load_best_model_at_end=True,
+        metric_for_best_model="f1",
+    )
 
     trainer = Trainer(
         model=model,

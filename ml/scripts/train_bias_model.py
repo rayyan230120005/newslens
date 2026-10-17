@@ -12,6 +12,7 @@ detected before running this.
 """
 
 import os
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 import torch
 from datasets import load_from_disk
 from transformers import (
@@ -67,7 +68,12 @@ def main():
     tokenized = load_and_prepare(tokenizer)
     data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
 
-    model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=2)
+    model = AutoModelForSequenceClassification.from_pretrained(
+        MODEL_NAME,
+        num_labels=2,
+        id2label={0: "NOT_BIASED", 1: "BIASED"},
+        label2id={"NOT_BIASED": 0, "BIASED": 1},
+    )
 
     args = TrainingArguments(
         output_dir=OUTPUT_DIR,
@@ -76,10 +82,12 @@ def main():
         learning_rate=2e-5,
         per_device_train_batch_size=8,
         per_device_eval_batch_size=16,
-        gradient_accumulation_steps=2,   # effective batch size = 16
-        fp16=torch.cuda.is_available(),  # half precision, GPU only
+        gradient_accumulation_steps=2,
+        fp16=torch.cuda.is_available(),
+        max_grad_norm=1.0,
         num_train_epochs=3,
         weight_decay=0.01,
+        save_total_limit=2,
         load_best_model_at_end=True,
         metric_for_best_model="f1",
     )

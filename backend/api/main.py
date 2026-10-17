@@ -13,11 +13,25 @@ Stage 1: /health. Stage 2: /claim/check. This adds Stage 3: /bias/score
 (placeholder scorer for now). Hate and pseudoscience routes get added the
 same way.
 """
-from fastapi import FastAPI
-from api.routes import health,claim,bias
+from fastapi import FastAPI  # type: ignore[import-not-found]
+from fastapi.middleware.cors import CORSMiddleware
+
+from api.routes import analyze, bias, claim, health
 
 app = FastAPI(title="NewsLens API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origin_regex=(
+        r"^(chrome-extension://.*|http://localhost(:\d+)?|"
+        r"http://127\.0\.0\.1(:\d+)?|https://x\.com|"
+        r"https://twitter\.com|https://mobile\.twitter\.com)$"
+    ),
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(health.router)
 app.include_router(claim.router)
 app.include_router(bias.router)
+app.include_router(analyze.router)

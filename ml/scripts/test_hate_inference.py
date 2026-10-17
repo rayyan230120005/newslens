@@ -13,8 +13,8 @@ import os
 import torch
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
-MODEL_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "models", "hate-bert")
-
+# MODEL_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "models", "hate-bert")
+MODEL_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "models", "hate-bert-v2")
 TEST_SENTENCES = [
     "People from that community are always causing trouble and can't be trusted.",
     "The city council held its monthly meeting on Tuesday to discuss the new budget.",
