@@ -16,7 +16,7 @@ same way.
 from fastapi import FastAPI  # type: ignore[import-not-found]
 from fastapi.middleware.cors import CORSMiddleware
 
-from api.routes import analyze, bias, claim, health
+from api.routes import analyze, articles, bias, claim, health
 
 app = FastAPI(title="NewsLens API")
 
@@ -35,3 +35,4 @@ app.include_router(health.router)
 app.include_router(claim.router)
 app.include_router(bias.router)
 app.include_router(analyze.router)
+app.include_router(articles.router)
