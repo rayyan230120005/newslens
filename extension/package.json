@@ -1,0 +1,9 @@
+{
+  "name": "newslens-extension",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Chrome extension layer for NewsLens.",
+  "scripts": {
+    "check": "node --check content-scripts/twitter-extractor.js && node --check content-scripts/selectors.js && node --check background/service-worker.js"
+  }
+}

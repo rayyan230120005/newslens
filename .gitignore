@@ -1,0 +1,23 @@
+models/
+ml/data/raw/
+
+# Python caches and local environments
+**/__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local secrets and configuration
+**/.env
+**/.env.*
+!**/.env.example
+
+# Jupyter / IDE / OS artifacts
+.ipynb_checkpoints/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Node (browser extension)
+node_modules/
